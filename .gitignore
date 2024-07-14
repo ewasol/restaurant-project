@@ -6,7 +6,7 @@ main_project/postgres_data
 *.mypy_cache/**
 **/__pycache__/
 __pycache__/
-.env.dev
+.env-dev
 **/__pycache__/**
 htmlcov/
 .idea/
