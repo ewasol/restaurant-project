@@ -31,7 +31,7 @@ class RestaurantViewSetTests(TestCase):
 
         self.assertEqual(response.data, serializer.data)
 
-    def test_by_recipe_with_no_matching_recipe_id(self):
+    def test_should_get_empty_list_when_no_matching_recipe_id(self):
         url = reverse('restaurant-by-recipe', args=[999])
         response = self.client.get(url)
 
@@ -42,7 +42,7 @@ class RestaurantViewSetTests(TestCase):
 
         self.assertEqual(response.data, serializer.data)
 
-    def test_raise_404_when_invalid_recipe_id(self):
+    def test_should_raise_404_when_invalid_recipe_id(self):
         url = reverse('restaurant-by-recipe', args=["invalid"])
         response = self.client.get(url)
 
