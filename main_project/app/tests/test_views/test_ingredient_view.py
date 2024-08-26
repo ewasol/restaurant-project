@@ -40,7 +40,7 @@ class IngredientViewSetTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         ingredients = Ingredient.objects.filter(
-            restaurant__id=999).prefetch_related('recipes').distinct()
+            recipes__id=999).prefetch_related('recipes')
         serializer = IngredientSerializer(ingredients, many=True)
 
         self.assertEqual(response.data, serializer.data)
@@ -52,8 +52,8 @@ class IngredientViewSetTests(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         ingredients = Ingredient.objects.filter(
-            recipes__id=self.restaurant1.id).prefetch_related(
-            'recipes').distinct()
+            recipes__restaurant__id=self.restaurant1.id).prefetch_related(
+            'recipes__restaurant')
         serializer = IngredientSerializer(ingredients, many=True)
         self.assertEqual(response.data, serializer.data)
 
@@ -63,7 +63,7 @@ class IngredientViewSetTests(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-        ingredients = Ingredient.objects.filter(recipes__restaurant__id=999).prefetch_related('recipes__restaurant').distinct()
+        ingredients = Ingredient.objects.filter(recipes__restaurant__id=999).prefetch_related('recipes__restaurant')
         serializer = IngredientSerializer(ingredients, many=True)
 
         self.assertEqual(response.data, serializer.data)
